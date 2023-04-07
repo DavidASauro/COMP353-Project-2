@@ -50,6 +50,16 @@ include 'Connect.php'
   </div>
 </nav>
 
+<form>
+  <label for="doi">Date of Infection:</label><br>
+  <input type="date" id="doi" name="doi"><br>
+
+  <label for="medicare">Medicare Number:</label><br>
+  <input type="text" id="medicare" name="medicare" minlength="12" maxlength="12"><br>
+
+  <label for="inftype">Infection Type:</label><br>
+  <input type="text" id="inftype" name="inftype"><br>
+</form>
 
 <?php 
 
