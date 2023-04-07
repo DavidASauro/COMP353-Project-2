@@ -7,21 +7,19 @@ include 'Connect.php'
 <html lang="en">
 <head>
 
-    <title>Our Database [PLACEHOLDER]</title>
+    <title>HFESTS</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     
 </head>
 
 
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Hospital System</a>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="LandingPage.php">Home</a>
+      </li>
       <li class="nav-item">
-        <a class="nav-link" href="Employees.php">Employees</a>
+        <a class="nav-link active" href="Employees.php">Employees</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="Facilities.php">Facilities</a>
@@ -47,45 +45,82 @@ include 'Connect.php'
       <li class="nav-item">
         <a class="nav-link" href="Sends.php">Sends</a>
       </li>
-  </div>
-</nav>
-
+      <li class="nav-item">
+        <a class="nav-link" href="EmployeeAddress.php">EmployeeAddress</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="FacilityAddress.php">FacilityAddress</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="FacilityCity.php">FacilityCity</a>
+      </li>
+  </ul>
+  <br>
 <form>
-  <label for="medicare">Medicare Number:</label><br>
-  <input type="text" id="medicare" name="medicare" minlength="12" maxlength="12"><br>
+  <div class="row">
+    <div class="form-group col-md-2">
+      <label for="medicare">Medicare Number:</label><br>
+      <input type="text" class="form-control" id="medicare" name="medicare" minlength="12" maxlength="12" placeholder="Medicare Number"><br>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="fname">First Name:</label><br>
+      <input type="text" class="form-control" placeholder="First Name" id="fname" name="fname"><br>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="lname">Last Name:</label><br>
+      <input type="text" placeholder="Last Name" class="form-control" id="lname" name="lname"><br>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="dob">Birthday:</label><br>
+      <input type="date" class="form-control" id="dob" name="dob"><br>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="city">City:</label><br>
+      <input class="form-control" placeholder="City" type="text" id="city" name="city"><br>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="pnum">Phone Number:</label><br>
+      <input type="number" class="form-control" placeholder="Phone Number" id="pnum" name="pnum" minlength="10" maxlength="10"><br>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="address">Address:</label><br>
+      <input type="text" class="form-control" placeholder="Street Address" id="address" name="address"><br>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="province">Province:</label><br>
+      <input type="text" class="form-control" placeholder="Province" id="province" name="province"><br>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="citizen">Citizenship:</label><br>
+      <input type="text" class="form-control" placeholder="Citizenship" id="citizen" name="citizen"><br>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="mail">Email:</label><br>
+      <input type="email" class="form-control" placeholder="Email" id="mail" name="mail"><br>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="postal">Postal Code:</label><br>
+      <input type="text" class="form-control" placeholder="Postal Code" id="postal" name="postal" minlength="6" maxlength="6"><br>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="role">Role:</label><br>
+      <select class="form-control" name="role" id="role">
+        <option value="nurse">Nurse</option>
+        <option value="cashier">Cashier</option>
+        <option value="pharmacist">Pharmacist</option>
+        <option value="receptionist">Receptionist</option>
+        <option value="administrative personnel">Administrative Personnel</option>
+        <option value="security personnel">Security Personnel</option>
+        <option value="regular employee">Regular Employee</option>
+      </select>
+    </div>
+    
+</div>
 
-  <label for="fname">First Name:</label><br>
-  <input type="text" id="fname" name="fname"><br>
+<div class="mx-auto" style="width: 200px;">
+<button type="submit" class="btn btn-outline-success btn-lg">Submit</button>
+</div>
 
-  <label for="lname">Last Name:</label><br>
-  <input type="text" id="lname" name="lname"><br>
-
-  <label for="dob">Birthday:</label><br>
-  <input type="date" id="dob" name="dob"><br>
-
-  <label for="city">City:</label><br>
-  <input type="text" id="city" name="city"><br>
-
-  <label for="pnum">Phone Number:</label><br>
-  <input type="number" id="pnum" name="pnum" minlength="10" maxlength="10"><br>
-
-  <label for="address">Address:</label><br>
-  <input type="text" id="address" name="address"><br>
-
-  <label for="province">Province:</label><br>
-  <input type="text" id="province" name="province"><br>
-
-  <label for="citizen">Citizenship:</label><br>
-  <input type="text" id="citizen" name="citizen"><br>
-
-  <label for="mail">Email:</label><br>
-  <input type="email" id="mail" name="mail"><br>
-
-  <label for="postal">Postal Code:</label><br>
-  <input type="text" id="postal" name="postal" minlength="6" maxlength="6"><br>
-
-  <label for="role">Role:</label><br>
-  <input type="text" id="role" name="role"><br>
 </form>
 
 
@@ -94,6 +129,7 @@ include 'Connect.php'
 $tablename = 'Employees';
 $query = 'SHOW COLUMNS FROM '. $tablename; 
 $column_names = mysqli_query($conn, $query);
+echo "<br><br>";
 echo "<table class =\"table\">";
 echo "<tr>";
 while($row = mysqli_fetch_assoc($column_names)) {
@@ -111,10 +147,45 @@ echo '<th> Delete </th>';
         echo "<td>" . $value . "</td>";
     }
 
-	echo "<td> <button type ='submit' class= \"btn btn-outline-danger\" name ='delete' value =''> Delete </button> </td>";
+    echo "<td>";
+    echo "<form method='POST'>";
+    echo "<button type='submit' class='btn btn-outline-danger' name='delete' value='" . $row['medicarenum'] . "'>Delete</button>";
+    echo "</form>";
+    echo "</td>";
+
     echo "</tr>";
 }
 echo "</table>";
+
+if(isset($_POST['delete'])) {
+  $medicarenum = $_POST['delete'];
+
+  $query = "DELETE FROM $tablename WHERE medicarenum = '$medicarenum'";
+  $result = mysqli_query($conn, $query);
+
+  $query1 = "DELETE FROM EmployeeAddress WHERE medicarenum = '$medicarenum'";
+  $result1 = mysqli_query($conn, $query1);
+
+  $query2 = "DELETE FROM Infections WHERE medicarenum = '$medicarenum'";
+  $result2 = mysqli_query($conn, $query2);
+
+  $query3 = "DELETE FROM Schedule WHERE medicarenum = '$medicarenum'";
+  $result3 = mysqli_query($conn, $query3);
+
+  $query4 = "DELETE FROM Vaccines WHERE medicarenum = '$medicarenum'";
+  $result4 = mysqli_query($conn, $query4);
+
+  $query5 = "DELETE FROM WorksAt WHERE medicarenum = '$medicarenum'";
+  $result5 = mysqli_query($conn, $query5);
+
+
+  if($result && $result1 && $result3 && $result4 && $result5 && $result2) {
+      echo "Row deleted successfully.";
+  } else {
+      echo "Error deleting row: " . mysqli_error($conn);
+  }
+}
+
 ?>
 
 </body>

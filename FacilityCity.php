@@ -29,7 +29,7 @@ include 'Connect.php'
         <a class="nav-link" href="Vaccines.php">Vaccines</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="Infections.php">Infections</a>
+        <a class="nav-link" href="Infections.php">Infections</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="Email.php">Email</a>
@@ -53,40 +53,24 @@ include 'Connect.php'
         <a class="nav-link" href="FacilityAddress.php">FacilityAddress</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="FacilityCity.php">FacilityCity</a>
+        <a class="nav-link active" href="FacilityCity.php">FacilityCity</a>
       </li>
   </ul>
-<br>
+<!--
 <form>
-  <div class="row">
-    <div class="form-group col-md-2">
-  <label for="doi">Date of Infection:</label><br>
-  <input type="date" class="form-control" id="doi" name="doi"><br>
-    </div>
-<div class="form-group col-md-2">
-  <label for="medicare">Medicare Number:</label><br>
-  <input type="text" class="form-control" id="medicare" name="medicare" minlength="12" maxlength="12"><br>
-      </div>
-<div class="form-group col-md-2">
-  <label for="inftype">Infection Type:</label><br>
-  <input type="text" class="form-control" id="inftype" name="inftype"><br>
-    </div>
+  <label for="fid">Facility ID:</label><br>
+  <input type="number" id="fid" name="fid"><br>
 
-    <div class="form-group col-md-2">
-  <br>
-<button type="submit" class="btn btn-outline-success">Submit</button>
-</div>
-
-</div>
-
-</form>
+  <label for="emid">Email ID:</label><br>
+  <input type="number" id="emid" name="emid"><br>
+</form> 
+-->
 
 <?php 
 
-$tablename = 'Infections';
+$tablename = 'FacilityCity';
 $query = 'SHOW COLUMNS FROM '. $tablename; 
 $column_names = mysqli_query($conn, $query);
-echo "<br>";
 echo "<table class =\"table\">";
 echo "<tr>";
 while($row = mysqli_fetch_assoc($column_names)) {

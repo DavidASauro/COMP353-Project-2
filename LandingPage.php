@@ -17,7 +17,7 @@ include 'Connect.php'
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link" href="LandingPage.php">Home</a>
+        <a class="nav-link active" href="LandingPage.php">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="Employees.php">Employees</a>
@@ -29,7 +29,7 @@ include 'Connect.php'
         <a class="nav-link" href="Vaccines.php">Vaccines</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="Infections.php">Infections</a>
+        <a class="nav-link" href="Infections.php">Infections</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="Email.php">Email</a>
@@ -56,59 +56,9 @@ include 'Connect.php'
         <a class="nav-link" href="FacilityCity.php">FacilityCity</a>
       </li>
   </ul>
-<br>
-<form>
-  <div class="row">
-    <div class="form-group col-md-2">
-  <label for="doi">Date of Infection:</label><br>
-  <input type="date" class="form-control" id="doi" name="doi"><br>
-    </div>
-<div class="form-group col-md-2">
-  <label for="medicare">Medicare Number:</label><br>
-  <input type="text" class="form-control" id="medicare" name="medicare" minlength="12" maxlength="12"><br>
-      </div>
-<div class="form-group col-md-2">
-  <label for="inftype">Infection Type:</label><br>
-  <input type="text" class="form-control" id="inftype" name="inftype"><br>
-    </div>
-
-    <div class="form-group col-md-2">
-  <br>
-<button type="submit" class="btn btn-outline-success">Submit</button>
-</div>
-
-</div>
-
-</form>
-
-<?php 
-
-$tablename = 'Infections';
-$query = 'SHOW COLUMNS FROM '. $tablename; 
-$column_names = mysqli_query($conn, $query);
-echo "<br>";
-echo "<table class =\"table\">";
-echo "<tr>";
-while($row = mysqli_fetch_assoc($column_names)) {
-	echo '<th>' . $row['Field'] . '</th>';
-}
-
-echo '<th> Delete </th>';
 
 
- $query = 'SELECT * FROM '. $tablename;
- $table_data = mysqli_query($conn, $query);
- while ($row = mysqli_fetch_assoc($table_data)) {
-    echo "<tr>";
-    foreach ($row as $value) {
-        echo "<td>" . $value . "</td>";
-    }
-
-	echo "<td> <button type ='submit' class= \"btn btn-outline-danger\" name ='delete' value =''> Delete </button> </td>";
-    echo "</tr>";
-}
-echo "</table>";
-?>
 
 </body>
 </html>
+

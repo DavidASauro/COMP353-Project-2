@@ -7,7 +7,7 @@ include 'Connect.php'
 <html lang="en">
 <head>
 
-    <title>Our Database [PLACEHOLDER]</title>
+    <title>HFESTS</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     
 </head>
@@ -15,11 +15,10 @@ include 'Connect.php'
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Hospital System</a>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="LandingPage.php">Home</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="Employees.php">Employees</a>
       </li>
@@ -45,18 +44,27 @@ include 'Connect.php'
         <a class="nav-link" href="Arranges.php">Arranges</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="Sends.php">Sends</a>
+        <a class="nav-link active" href="Sends.php">Sends</a>
       </li>
-  </div>
-</nav>
-
+      <li class="nav-item">
+        <a class="nav-link" href="EmployeeAddress.php">EmployeeAddress</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="FacilityAddress.php">FacilityAddress</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="FacilityCity.php">FacilityCity</a>
+      </li>
+  </ul>
+<!--
 <form>
   <label for="fid">Facility ID:</label><br>
   <input type="number" id="fid" name="fid"><br>
 
   <label for="emid">Email ID:</label><br>
   <input type="number" id="emid" name="emid"><br>
-</form>
+</form> 
+-->
 
 <?php 
 
