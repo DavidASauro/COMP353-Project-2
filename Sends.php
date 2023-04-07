@@ -50,6 +50,13 @@ include 'Connect.php'
   </div>
 </nav>
 
+<form>
+  <label for="fid">Facility ID:</label><br>
+  <input type="number" id="fid" name="fid"><br>
+
+  <label for="emid">Email ID:</label><br>
+  <input type="number" id="emid" name="emid"><br>
+</form>
 
 <?php 
 

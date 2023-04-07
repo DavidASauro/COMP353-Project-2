@@ -50,6 +50,22 @@ include 'Connect.php'
   </div>
 </nav>
 
+<form>
+  <label for="fid">Facility ID:</label><br>
+  <input type="number" id="fid" name="fid"><br>
+
+  <label for="medicare">Medicare Number:</label><br>
+  <input type="text" id="medicare" name="medicare" minlength="12" maxlength="12"><br>
+
+  <label for="vdate">Date:</label><br>
+  <input type="date" id="vdate" name="vdate"><br>
+
+  <label for="type">Type:</label><br>
+  <input type="text" id="type" name="type"><br>
+
+  <label for="doseno">Dose Number:</label><br>
+  <input type="number" id="doseno" name="doseno"><br>
+</form>
 
 <?php 
 

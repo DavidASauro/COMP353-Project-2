@@ -50,6 +50,25 @@ include 'Connect.php'
   </div>
 </nav>
 
+<form>
+  <label for="emid">Email ID:</label><br>
+  <input type="number" id="emid" name="emid"><br>
+
+  <label for="embody">Email Body:</label><br>
+  <input type="text" id="embody" name="embody"><br>
+
+  <label for="emdate">Email Date:</label><br>
+  <input type="date" id="emdate" name="emdate"><br>
+
+  <label for="rec">Receiver:</label><br>
+  <input type="text" id="rec" name="rec"><br>
+
+  <label for="sub">Receiver:</label><br>
+  <input type="text" id="sub" name="sub"><br>
+
+  <label for="send">Receiver:</label><br>
+  <input type="text" id="send" name="send"><br>
+</form>
 
 <?php 
 

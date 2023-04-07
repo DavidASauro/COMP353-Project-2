@@ -50,6 +50,37 @@ include 'Connect.php'
   </div>
 </nav>
 
+<form>
+  <label for="fid">Facility ID:</label><br>
+  <input type="number" id="fid" name="fid"><br>
+
+  <label for="ftype">Facility Type:</label><br>
+  <input type="text" id="ftype" name="ftype"><br>
+
+  <label for="city">City:</label><br>
+  <input type="text" id="city" name="city"><br>
+
+  <label for="pnum">Phone Number:</label><br>
+  <input type="number" id="pnum" name="pnum" minlength="10" maxlength="10"><br>
+
+  <label for="address">Address:</label><br>
+  <input type="text" id="address" name="address"><br>
+
+  <label for="province">Province:</label><br>
+  <input type="text" id="province" name="province"><br>
+
+  <label for="web">Web Address:</label><br>
+  <input type="text" id="citizen" name="citizen"><br>
+
+  <label for="mail">Email:</label><br>
+  <input type="email" id="mail" name="mail"><br>
+
+  <label for="postal">Postal Code:</label><br>
+  <input type="text" id="postal" name="postal" minlength="6" maxlength="6"><br>
+
+  <label for="role">Role:</label><br>
+  <input type="text" id="role" name="role"><br>
+</form>
 
 <?php 
 
