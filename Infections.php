@@ -104,10 +104,30 @@ echo '<th> Delete </th>';
         echo "<td>" . $value . "</td>";
     }
 
-	echo "<td> <button type ='submit' class= \"btn btn-outline-danger\" name ='delete' value =''> Delete </button> </td>";
+	  echo "<td>";
+    echo "<form method='POST'>";
+    echo "<input type='hidden' name='value1' value='" . $row['dateofinfection'] . "'>";
+    echo "<input type='hidden' name='value2' value='" . $row['infectiontype'] . "'>";
+    echo "<button type='submit' class='btn btn-outline-danger' name='delete'>Delete</button>";
+    echo "</form>";
+    echo "</td>";
     echo "</tr>";
 }
 echo "</table>";
+
+
+if(isset($_POST['delete'])) {
+ 
+  $value1 = $_POST['value1'];
+  $value2 = $_POST['value2'];
+
+  $query = "DELETE FROM $tablename WHERE value1='$value1' AND value2='$value2'";
+  mysqli_query($conn, $query);
+
+}
+
+
+
 ?>
 
 </body>

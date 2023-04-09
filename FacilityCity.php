@@ -77,7 +77,7 @@ while($row = mysqli_fetch_assoc($column_names)) {
 	echo '<th>' . $row['Field'] . '</th>';
 }
 
-echo '<th> Delete </th>';
+
 
 
  $query = 'SELECT * FROM '. $tablename;
@@ -88,7 +88,7 @@ echo '<th> Delete </th>';
         echo "<td>" . $value . "</td>";
     }
 
-	echo "<td> <button type ='submit' class= \"btn btn-outline-danger\" name ='delete' value =''> Delete </button> </td>";
+	
     echo "</tr>";
 }
 echo "</table>";

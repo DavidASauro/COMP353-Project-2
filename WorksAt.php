@@ -69,7 +69,6 @@
       echo '<th>' . $row['Field'] . '</th>';
     }
 
-    echo '<th> Delete </th>';
 
 
     $query = 'SELECT * FROM '. $tablename;
@@ -80,7 +79,6 @@
             echo "<td>" . $value . "</td>";
         }
 
-      echo "<td> <button type ='submit' class= \"btn btn-outline-danger\" name ='delete' value =''> Delete </button> </td>";
         echo "</tr>";
     }
     echo "</table>";

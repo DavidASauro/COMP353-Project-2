@@ -114,7 +114,7 @@ echo "<tr>";
 while($row = mysqli_fetch_assoc($column_names)) {
 	echo '<th>' . $row['Field'] . '</th>';
 }
-
+echo '<th> Edit </th>';
 echo '<th> Delete </th>';
 
 
@@ -125,11 +125,64 @@ echo '<th> Delete </th>';
     foreach ($row as $value) {
         echo "<td>" . $value . "</td>";
     }
+    echo "<td>";
+    echo "<form action='editFacilities.php' method='get'>";
+    echo "<input type='hidden' name='facilityID' value='" . $row['facilityID'] . "'>";
+    echo "<button class='btn btn-outline-success' type='submit'>Edit</button>";
+    echo "</form>";
+    echo "</td>";
+    
 
-	echo "<td> <button type ='submit' class= \"btn btn-outline-danger\" name ='delete' value =''> Delete </button> </td>";
-    echo "</tr>";
+    echo "<td>";
+    echo "<form method='POST'>";
+    echo "<button type='submit' class='btn btn-outline-danger' name='delete' value='" . $row['facilityID'] . "'>Delete</button>";
+    echo "</form>";
+    echo "</td>";
+
 }
 echo "</table>";
+
+if(isset($_POST['delete'])) {
+  $facilityID = $_POST['delete'];
+  $address = $_POST['delete'];
+  $city = $_POST['delete'];
+
+  $query = "DELETE FROM $tablename WHERE FacilityID = '$facilityID'";
+  $result = mysqli_query($conn, $query);
+
+  $query1 = "DELETE FROM FacilityAddress WHERE address = '$address'";
+  $result1 = mysqli_query($conn, $query1);
+
+  $query2 = "DELETE FROM FacilityCity WHERE city = '$city'";
+  $result2 = mysqli_query($conn, $query2);
+
+  $query3 = "DELETE FROM Schedule WHERE FacilityID = '$facilityID'";
+  $result3 = mysqli_query($conn, $query3);
+
+  $query4 = "DELETE FROM Sends WHERE FacilityID = '$facilityID'";
+  $result4 = mysqli_query($conn, $query4);
+
+  $query5 = "DELETE FROM Vaccines WHERE FacilityID = '$facilityID'";
+  $result5 = mysqli_query($conn, $query5);
+
+  $query6 = "DELETE FROM WorksAt WHERE FacilityID = '$facilityID'";
+  $result6 = mysqli_query($conn, $query5);
+
+  $query6 = "DELETE FROM Arranges WHERE FacilityID = '$facilityID'";
+  $result6 = mysqli_query($conn, $query5);
+
+
+  if($result6 && $result && $result1 && $result3 && $result4 && $result5 && $result2 && $result6) {
+      echo "Row deleted successfully.";
+  } else {
+      echo "Error deleting row: " . mysqli_error($conn);
+  }
+}
+
+
+
+
+
 ?>
 
 </body>

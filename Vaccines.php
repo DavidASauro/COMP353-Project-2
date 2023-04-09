@@ -99,7 +99,6 @@ echo "<tr>";
 while($row = mysqli_fetch_assoc($column_names)) {
 	echo '<th>' . $row['Field'] . '</th>';
 }
-
 echo '<th> Delete </th>';
 
 
@@ -111,10 +110,50 @@ echo '<th> Delete </th>';
         echo "<td>" . $value . "</td>";
     }
 
-	echo "<td> <button type ='submit' class= \"btn btn-outline-danger\" name ='delete' value =''> Delete </button> </td>";
+    echo "<td>";
+    echo "<form method='POST'>";
+    echo "<input type='hidden' name='value1' value='" . $row['medicarenum'] . "'>";
+    echo "<input type='hidden' name='value2' value='" . $row['type'] . "'>";
+    echo "<input type='hidden' name='value3' value='" . $row['date'] . "'>";
+    echo "<button type='submit' class='btn btn-outline-danger' name='delete'>Delete</button>";
+    echo "</form>";
+    echo "</td>";
     echo "</tr>";
 }
 echo "</table>";
+
+if(isset($_POST['delete'])) {
+   
+  $value1 = $_POST['value1'];
+  $value2 = $_POST['value2'];
+  $value3 = $_POST['value3'];
+
+  $query = "DELETE FROM $tablename WHERE value1='$value1' AND value2='$value2' AND value3='$value3";
+  $result = mysqli_query($conn, $query);
+
+  if($result) {
+      echo "Row deleted successfully.";
+  } else {
+      echo "Error deleting row: " . mysqli_error($conn);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ?>
 
 </body>
