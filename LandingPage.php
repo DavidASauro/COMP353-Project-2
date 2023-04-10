@@ -59,7 +59,7 @@ include 'Connect.php'
 
   <ul>
 
-  <li><a href="link1.html">Get Facility Details</a></li>
+  <li><a href="Q6.php">Get Facility Details</a></li>
   <li><a href="link2.html">Get Employee Details</a></li>
   <li><a href="link3.html">Get Employee Schedule</a></li>
   <li><a href="link4.html">Doctor Details</a></li>
