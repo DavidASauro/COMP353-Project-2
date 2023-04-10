@@ -57,6 +57,24 @@ include 'Connect.php'
       </li>
   </ul>
 
+  <ul>
+
+  <li><a href="link1.html">Get Facility Details</a></li>
+  <li><a href="link2.html">Get Employee Details</a></li>
+  <li><a href="link3.html">Get Employee Schedule</a></li>
+  <li><a href="link4.html">Doctor Details</a></li>
+  <li><a href="link5.html">Facilities Emails</a></li>
+  <li><a href="link6.html">Facilities Doctors</a></li>
+  <li><a href="link7.html">Total Hours By Role</a></li>
+  <li><a href="link8.html">Get Facility Covid Details</a></li>
+  <li><a href="link9.html">Doctors of Quebec</a></li>
+  <li><a href="link10.html">Nurses with most hours</a></li>
+  <li><a href="link11.html">Doctors and nurses 3xCovid</a></li>
+  <li><a href="link12.html">Doctors and nurses no Covid</a></li>
+  
+</ul>
+
+
 
 
 </body>

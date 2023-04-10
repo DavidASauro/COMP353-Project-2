@@ -58,7 +58,7 @@ include 'Connect.php'
   </ul>
   <br>
   <form>
-    <div class="row">
+    <div class="row" method ="get">
       <div class="form-group col-md-2">
         <label for="medicare">Medicare Number:</label><br>
         <input type="text" class="form-control" id="medicare" name="medicare" minlength="12" maxlength="12" placeholder="Medicare Number"><br>
@@ -119,7 +119,7 @@ include 'Connect.php'
     </div>
 
     <div class="mx-auto" style="width: 200px;">
-      <button type="submit" class="btn btn-outline-success btn-lg">Submit</button>
+      <button type="submit" name="submit" class="btn btn-outline-success btn-lg">Submit</button>
     </div>
 
   </form>
@@ -191,6 +191,37 @@ include 'Connect.php'
       echo "Row deleted successfully.";
     } else {
       echo "Error deleting row: " . mysqli_error($conn);
+    }
+  }
+
+  if (isset($_GET['submit'])) {
+
+    $medicare = $_GET['medicare'];
+    $fname = $_GET['fname'];
+    $lname = $_GET['lname'];
+    $dob = $_GET['dob'];
+    $city = $_GET['city'];
+    $pnum = $_GET['pnum'];
+    $address = $_GET['address'];
+    $province = $_GET['province'];
+    $citizen = $_GET['citizen'];
+    $mail = $_GET['mail'];
+    $postal = $_GET['postal'];
+    $role = $_GET['role'];
+
+    $query1 = "INSERT INTO Employees (address, citizenship, dateofbirth, emailaddress, firstname, lastname, medicarenum, postalcode, role, telephonenum) 
+    VALUES ('$address', '$citizen', '$dob', '$mail', '$fname', '$lname', '$medicare', '$postal', '$role', '$pnum')";
+    $result1 = mysqli_query($conn, $query1);
+
+    $query2 = "INSERT INTO EmployeeAddress (city, postalcode, province) VALUES
+    ('$city', '$postal', '$province')";
+    $result2 = mysqli_query($conn, $query2);
+
+
+    if ($result1 && $result2) {
+      echo "Row added successfully.";
+    } else {
+     
     }
   }
 

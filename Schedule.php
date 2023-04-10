@@ -58,7 +58,7 @@ include 'Connect.php'
   </ul>
 <br>
 <form>
-  <div class="row">
+  <div class="row" method = "get">
 <div class="form-group col-md-2">
   <label for="fid">Facility ID:</label><br>
   <input type="number" class="form-control" id="fid" name="fid"><br>
@@ -81,7 +81,7 @@ include 'Connect.php'
 </div>
 <div class="form-group col-md-2">
   <br>
-<button type="submit" class="btn btn-outline-success">Submit</button>
+<button type="submit" name = "submit" class="btn btn-outline-success">Submit</button>
 </div>
   </div>
 
@@ -115,6 +115,38 @@ echo '<th> Delete </th>';
     echo "</tr>";
 }
 echo "</table>";
+
+if (isset($_GET['submit'])) {
+
+  $endtime = $_GET['etime'];
+  $facilityID = $_GET['fid'];
+  $medicarenum = $_GET['medicare'];
+  $scheduledate = $_GET['sdate'];
+  $starttime = $_GET['stime'];
+
+  $query1 = "INSERT INTO Schedule (endtime,facilityID,medicarenum,scheduledate,starttime ) 
+  VALUES ('$endtime', '$facilityID', '$medicarenum', '$scheduledate', '$starttime')";
+  $result1 = mysqli_query($conn, $query1);
+
+
+  if ($result1) {
+    echo "Row added successfully.";
+  } else {
+   
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 ?>
 
 </body>

@@ -58,7 +58,7 @@ include 'Connect.php'
   </ul>
 <br>
 <form>
-  <div class="row">
+  <div class="row" method = "get">
   <div class="form-group col-md-2">
   <label for="fid">Facility ID:</label><br>
   <input type="number" class="form-control" id="fid" name="fid"><br>
@@ -66,6 +66,10 @@ include 'Connect.php'
 <div class="form-group col-md-2">
   <label for="ftype">Facility Type:</label><br>
   <input type="text" class="form-control" id="ftype" name="ftype"><br>
+</div>
+<div class="form-group col-md-2">
+  <label for="ftype">Capacity:</label><br>
+  <input type="number" class="form-control" id="capacity" name="capacity"><br>
 </div>
 <div class="form-group col-md-2">
   <label for="city">City:</label><br>
@@ -80,25 +84,29 @@ include 'Connect.php'
   <input type="text" class="form-control" id="address" name="address"><br>
 </div>
 <div class="form-group col-md-2">
-  <label for="province">Province:</label><br>
-  <input type="text" class="form-control" id="province" name="province"><br>
+  <label for="manager">Manager ID:</label><br>
+  <input type="text" class="form-control" id="manager" name="manager"><br>
 </div>
 <div class="form-group col-md-2">
   <label for="web">Web Address:</label><br>
-  <input type="text" class="form-control" id="citizen" name="citizen"><br>
+  <input type="text" class="form-control" id="web" name="web"><br>
 </div>
 <div class="form-group col-md-2">
-  <label for="mail">Email:</label><br>
-  <input type="email" class="form-control" id="mail" name="mail"><br>
+  <label for="name">Name:</label><br>
+  <input type="text" class="form-control" id="name" name="name"><br>
 </div>
 <div class="form-group col-md-2">
   <label for="postal">Postal Code:</label><br>
   <input type="text" class="form-control" id="postal" name="postal" minlength="6" maxlength="6"><br>
 </div>
+<div class="form-group col-md-2">
+  <label for="province">Province:</label><br>
+  <input type="text" class="form-control" id="province" name="province" minlength="2"><br>
+</div>
   </div>
 
   <div class="mx-auto" style="width: 200px;">
-<button type="submit" class="btn btn-outline-success btn-lg">Submit</button>
+<button type="submit" name="submit" class="btn btn-outline-success btn-lg">Submit</button>
 </div>
 
 </form>
@@ -178,7 +186,39 @@ if(isset($_POST['delete'])) {
       echo "Error deleting row: " . mysqli_error($conn);
   }
 }
+if (isset($_GET['submit'])) {
 
+  $address = $_GET['address'];
+  $capacity = $_GET['capacity'];
+  $facilityID = $_GET['fid'];
+  $facilityType = $_GET['ftype'];
+  $managerID = $_GET['manager'];
+  $name = $_GET['name'];
+  $phonenum = $_GET['pnumn'];
+  $postalcode = $_GET['postal'];
+  $webaddress = $_GET['web'];
+  $city = $_GET['city'];
+  $province = $_GET['province'];
+
+  $query1 = "INSERT INTO Facilities (address, capacity, facilityID, facilitytype, managerID, name, phonenum, postalcode, webaddress) 
+  VALUES ('$address', '$capacity', '$facilityID', '$facilityType', '$managerID', '$name', '$phonenum', '$postalcode', '$webaddress')";
+  $result1 = mysqli_query($conn, $query1);
+
+  $query2 = "INSERT INTO FacilityAddress (address, city, province) 
+  VALUES ('$address', '$city', '$province')";
+  $result2 = mysqli_query($conn, $query2);
+
+  $query3 = "INSERT INTO FacilityCity (city, postalcode) 
+  VALUES ('$city', '$postalcode')";
+  $result3 = mysqli_query($conn, $query3);
+
+
+  if ($result1 && $result2 && $result3) {
+    echo "Row added successfully.";
+  } else {
+   
+  }
+}
 
 
 

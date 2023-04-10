@@ -58,7 +58,7 @@ include 'Connect.php'
   </ul>
 <br>
 <form>
-<div class="row">
+<div class="row" method = "get">
   <div class="form-group col-md-2">
   <label for="fid">Facility ID:</label><br>
   <input type="number" class="form-control" id="fid" name="fid"><br>
@@ -81,7 +81,7 @@ include 'Connect.php'
 </div>
 <div class="form-group col-md-2">
   <br>
-<button type="submit" class="btn btn-outline-success">Submit</button>
+<button type="submit" name = "submit" class="btn btn-outline-success">Submit</button>
 </div>
 </div>
 
@@ -137,8 +137,26 @@ if(isset($_POST['delete'])) {
       echo "Error deleting row: " . mysqli_error($conn);
   }
 }
+if (isset($_GET['submit'])) {
+
+  $date = $_GET['vdate'];
+  $dosenum = $_GET['doseno'];
+  $facilityID = $_GET['fid'];
+  $medicarenum = $_GET['medicare'];
+  $type = $_GET['type'];
 
 
+  $query1 = "INSERT INTO Vaccines ('date', dosenum, facilityID, medicarenum, type) 
+  VALUES ('$date', '$dosenum', '$facilityID', '$medicarenum', '$type')";
+  $result1 = mysqli_query($conn, $query1);
+
+
+  if ($result1) {
+    echo "Row added successfully.";
+  } else {
+   
+  }
+}
 
 
 
