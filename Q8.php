@@ -52,48 +52,61 @@ include 'Connect.php'
       </li>
   </ul>
 <form method="POST">
-    <label for="fid">Facility ID:</label><br>
-    <input type="number"  id="fid" name="fid" ><br>
+    <label for="startdate">Start Date:</label><br>
+    <input type="date"  id="startdate" name="startdate" ><br>
+    <label for="enddate">End Date:</label><br>
+    <input type="date"  id="enddate" name="enddate" ><br>
+    <label for="mnum">Medicare Number:</label><br>
+    <input type="text"  id="mnum" name="mnum" ><br>
     <button type="submit" name="submit" class="btn btn-outline-success btn-lg">Submit</button>
 </form>
 
 <?php
 if (isset($_POST['submit'])) {
-   
-    $fid = $_POST["fid"];
-    $query = "SELECT F.name, FA.address, FC.city, FA.province, FC.postalcode, F.phonenum, F.webaddress, F.facilitytype, F.capacity, E.firstname AS 'general_manager', COUNT(W.facilityID) AS 'nb_of_current_employees' 
-    FROM Facilities as F, FacilityAddress as FA, FacilityCity as FC, WorksAt as W, Employees as E
-    WHERE $fid = F.facilityID AND F.facilityID = FC.facilityID AND W.enddate IS NULL AND F.facilityID = W.facilityID AND E.medicarenum = F.managerID
-    GROUP BY W.facilityID
-    ORDER BY FA.province, FC.city, F.facilitytype, nb_of_current_employees";
+
+    $startdate = $_POST["startdate"];
+    $mnum = $_POST["mnum"];
+    $enddate = $_POST["enddate"];
+
+
+    $query = "SELECT f.name, s.scheduledate, s.starttime, s.endtime 
+    FROM Schedule s, Facilities f, Employees e 
+    WHERE s.facilityID = f.facilityID 
+    AND s.medicarenum = e.medicarenum
+    AND e.medicarenum = '$mnum' 
+    AND s.scheduledate BETWEEN '$startdate' AND '$enddate'
+    AND f.name IS NOT NULL
+    ORDER BY f.name ASC, s.scheduledate ASC, s.starttime ASC; ";
+
+    //echo $query;
     
     // Execute the query
     $result = mysqli_query($conn, $query);
     
     // Check if query was successful
     if ($result) {
+    //     echo "<pre>";
+    // print_r(mysqli_fetch_assoc($result));
+    // echo "</pre>";
+        
       // Display the results in a table
-      echo "<table>";
-      echo "<tr><th>Name</th><th>Address</th><th>City</th><th>Province</th><th>Postal Code</th><th>Phone Number</th><th>Web Address</th><th>Type</th><th>Capacity</th><th>General Manager</th><th>Number of Employees</th></tr>";
-      while ($row = mysqli_fetch_assoc($result)) {
+      echo "<table class =\"table\">";
+      echo "<tr><th>Facility Name</th><th>Scheduled Date</th><th>Start Time</th><th>End Time</th>";
+
+      while ($row = mysqli_fetch_array($result)) {
+
         echo "<tr>";
         echo "<td>".$row['name']."</td>";
-        echo "<td>".$row['address']."</td>";
-        echo "<td>".$row['city']."</td>";
-        echo "<td>".$row['province']."</td>";
-        echo "<td>".$row['postalcode']."</td>";
-        echo "<td>".$row['phonenum']."</td>";
-        echo "<td>".$row['webaddress']."</td>";
-        echo "<td>".$row['facilitytype']."</td>";
-        echo "<td>".$row['capacity']."</td>";
-        echo "<td>".$row['general_manager']."</td>";
-        echo "<td>".$row['nb_of_current_employees']."</td>";
+        echo "<td>".$row['scheduledate']."</td>";
+        echo "<td>".$row['starttime']."</td>";
+        echo "<td>".$row['endtime']."</td>";
         echo "</tr>";
       }
       echo "</table>";
     } else {
       echo "Error: " . mysqli_error($conn);
   }
+
 }
 ?>
 

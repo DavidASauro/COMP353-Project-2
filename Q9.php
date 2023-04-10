@@ -51,43 +51,48 @@ include 'Connect.php'
         <a class="nav-link" href="FacilityCity.php">FacilityCity</a>
       </li>
   </ul>
-<form method="POST">
-    <label for="fid">Facility ID:</label><br>
-    <input type="number"  id="fid" name="fid" ><br>
+
+  <form method="POST">
+    <label for="startdate">Start Date:</label><br>
+    <input type="date"  id="startdate" name="startdate" ><br>
     <button type="submit" name="submit" class="btn btn-outline-success btn-lg">Submit</button>
 </form>
 
 <?php
 if (isset($_POST['submit'])) {
-   
-    $fid = $_POST["fid"];
-    $query = "SELECT F.name, FA.address, FC.city, FA.province, FC.postalcode, F.phonenum, F.webaddress, F.facilitytype, F.capacity, E.firstname AS 'general_manager', COUNT(W.facilityID) AS 'nb_of_current_employees' 
-    FROM Facilities as F, FacilityAddress as FA, FacilityCity as FC, WorksAt as W, Employees as E
-    WHERE $fid = F.facilityID AND F.facilityID = FC.facilityID AND W.enddate IS NULL AND F.facilityID = W.facilityID AND E.medicarenum = F.managerID
-    GROUP BY W.facilityID
-    ORDER BY FA.province, FC.city, F.facilitytype, nb_of_current_employees";
+    $startdate = $_POST['startdate'];
+
+
+    $query = "SELECT e.firstname, e.lastname, i.dateofinfection, f.name
+    FROM Employees e, Infections i, Facilities f, WorksAt w
+    WHERE e.medicarenum = i.medicarenum
+      AND e.medicarenum = w.medicarenum
+      AND w.facilityID = f.facilityID
+      AND i.dateofinfection BETWEEN DATE_SUB('$startdate', INTERVAL 14 DAY) AND '$startdate'
+      AND e.role = 'Doctor'
+      AND f.name IS NOT NULL
+    ORDER BY f.name ASC, e.firstname ASC;";
+
+    //echo $query;
     
     // Execute the query
     $result = mysqli_query($conn, $query);
     
     // Check if query was successful
     if ($result) {
+
       // Display the results in a table
-      echo "<table>";
-      echo "<tr><th>Name</th><th>Address</th><th>City</th><th>Province</th><th>Postal Code</th><th>Phone Number</th><th>Web Address</th><th>Type</th><th>Capacity</th><th>General Manager</th><th>Number of Employees</th></tr>";
+      echo "<table class =\"table\">";
+      echo "<tr><th>First Name</th><th>Last Name</th><th>Date Of Infection</th><th>Facility Name</th>";
+       echo "<br>";
+       
       while ($row = mysqli_fetch_assoc($result)) {
+
         echo "<tr>";
+        echo "<td>".$row['firstname']."</td>";
+        echo "<td>".$row['lastname']."</td>";
+        echo "<td>".$row['dateofinfection']."</td>";
         echo "<td>".$row['name']."</td>";
-        echo "<td>".$row['address']."</td>";
-        echo "<td>".$row['city']."</td>";
-        echo "<td>".$row['province']."</td>";
-        echo "<td>".$row['postalcode']."</td>";
-        echo "<td>".$row['phonenum']."</td>";
-        echo "<td>".$row['webaddress']."</td>";
-        echo "<td>".$row['facilitytype']."</td>";
-        echo "<td>".$row['capacity']."</td>";
-        echo "<td>".$row['general_manager']."</td>";
-        echo "<td>".$row['nb_of_current_employees']."</td>";
         echo "</tr>";
       }
       echo "</table>";
@@ -96,16 +101,6 @@ if (isset($_POST['submit'])) {
   }
 }
 ?>
-
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>

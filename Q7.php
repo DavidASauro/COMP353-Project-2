@@ -59,13 +59,13 @@ include 'Connect.php'
 
 <?php
 if (isset($_POST['submit'])) {
-   
+
     $fid = $_POST["fid"];
-    $query = "SELECT F.name, FA.address, FC.city, FA.province, FC.postalcode, F.phonenum, F.webaddress, F.facilitytype, F.capacity, E.firstname AS 'general_manager', COUNT(W.facilityID) AS 'nb_of_current_employees' 
-    FROM Facilities as F, FacilityAddress as FA, FacilityCity as FC, WorksAt as W, Employees as E
-    WHERE $fid = F.facilityID AND F.facilityID = FC.facilityID AND W.enddate IS NULL AND F.facilityID = W.facilityID AND E.medicarenum = F.managerID
+    $query = "SELECT E.firstname, E.lastname, W.startdate, E.dateofbirth, E.medicarenum, E.telephonenum, E.address, EA.city, EA.province, EA.postalcode, E.citizenship, E.emailaddress, W.facilityID
+    FROM Employees as E, WorksAt as W, EmployeeAddress as EA
+    WHERE E.medicarenum = W.medicarenum AND EA.medicarenum = E.medicarenum AND W.enddate IS NULL
     GROUP BY W.facilityID
-    ORDER BY FA.province, FC.city, F.facilitytype, nb_of_current_employees";
+    ORDER BY E.role, E.firstname, E.lastname";
     
     // Execute the query
     $result = mysqli_query($conn, $query);
@@ -74,26 +74,30 @@ if (isset($_POST['submit'])) {
     if ($result) {
       // Display the results in a table
       echo "<table>";
-      echo "<tr><th>Name</th><th>Address</th><th>City</th><th>Province</th><th>Postal Code</th><th>Phone Number</th><th>Web Address</th><th>Type</th><th>Capacity</th><th>General Manager</th><th>Number of Employees</th></tr>";
+      echo "<tr><th>First Name</th><th>Last Name</th><th>Start Date</th><th>Date Of Birth</th><th>Medicare Numeber</th><th>Phone Number</th><th>Address</th><th>City</th><th>Province</th><th>Postal Code</th><th>citizenship</th></tr><th>Email</th></tr><th>FacilityID</th></tr>";
       while ($row = mysqli_fetch_assoc($result)) {
+
         echo "<tr>";
-        echo "<td>".$row['name']."</td>";
+        echo "<td>".$row['firstname']."</td>";
+        echo "<td>".$row['lastname']."</td>";
+        echo "<td>".$row['starttime']."</td>";
+        echo "<td>".$row['dateofbirth']."</td>";
+        echo "<td>".$row['medicarenum']."</td>";
+        echo "<td>".$row['telephonenum']."</td>";
         echo "<td>".$row['address']."</td>";
         echo "<td>".$row['city']."</td>";
         echo "<td>".$row['province']."</td>";
         echo "<td>".$row['postalcode']."</td>";
-        echo "<td>".$row['phonenum']."</td>";
-        echo "<td>".$row['webaddress']."</td>";
-        echo "<td>".$row['facilitytype']."</td>";
-        echo "<td>".$row['capacity']."</td>";
-        echo "<td>".$row['general_manager']."</td>";
-        echo "<td>".$row['nb_of_current_employees']."</td>";
+        echo "<td>".$row['citizenship']."</td>";
+        echo "<td>".$row['emailaddress']."</td>";
+        echo "<td>".$row['facilityID']."</td>";
         echo "</tr>";
       }
       echo "</table>";
     } else {
       echo "Error: " . mysqli_error($conn);
   }
+
 }
 ?>
 

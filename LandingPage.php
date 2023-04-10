@@ -60,13 +60,13 @@ include 'Connect.php'
   <ul>
 
   <li><a href="Q6.php">Get Facility Details</a></li>
-  <li><a href="link2.html">Get Employee Details</a></li>
-  <li><a href="link3.html">Get Employee Schedule</a></li>
-  <li><a href="link4.html">Doctor Details</a></li>
-  <li><a href="link5.html">Facilities Emails</a></li>
-  <li><a href="link6.html">Facilities Doctors</a></li>
-  <li><a href="link7.html">Total Hours By Role</a></li>
-  <li><a href="link8.html">Get Facility Covid Details</a></li>
+  <li><a href="Q7.php">Get Employee Details</a></li>
+  <li><a href="Q8.php">Get Employee Schedule</a></li>
+  <li><a href="Q9.php">Doctor Details</a></li>
+  <li><a href="Q10.php">Facilities Emails</a></li>
+  <li><a href="Q11.php">Facilities Doctors</a></li>
+  <li><a href="Q12.php">Total Hours By Role</a></li>
+  <li><a href="Q13.php">Get Facility Covid Details</a></li>
   <li><a href="link9.html">Doctors of Quebec</a></li>
   <li><a href="link10.html">Nurses with most hours</a></li>
   <li><a href="link11.html">Doctors and nurses 3xCovid</a></li>

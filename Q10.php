@@ -51,7 +51,8 @@ include 'Connect.php'
         <a class="nav-link" href="FacilityCity.php">FacilityCity</a>
       </li>
   </ul>
-<form method="POST">
+
+  <form method="POST">
     <label for="fid">Facility ID:</label><br>
     <input type="number"  id="fid" name="fid" ><br>
     <button type="submit" name="submit" class="btn btn-outline-success btn-lg">Submit</button>
@@ -59,35 +60,41 @@ include 'Connect.php'
 
 <?php
 if (isset($_POST['submit'])) {
-   
-    $fid = $_POST["fid"];
-    $query = "SELECT F.name, FA.address, FC.city, FA.province, FC.postalcode, F.phonenum, F.webaddress, F.facilitytype, F.capacity, E.firstname AS 'general_manager', COUNT(W.facilityID) AS 'nb_of_current_employees' 
-    FROM Facilities as F, FacilityAddress as FA, FacilityCity as FC, WorksAt as W, Employees as E
-    WHERE $fid = F.facilityID AND F.facilityID = FC.facilityID AND W.enddate IS NULL AND F.facilityID = W.facilityID AND E.medicarenum = F.managerID
-    GROUP BY W.facilityID
-    ORDER BY FA.province, FC.city, F.facilitytype, nb_of_current_employees";
+
+    $fid = $_POST['fid'];
+
+
+    $query = "SELECT *
+    FROM Email
+    WHERE sender = '$fid'
+    ORDER BY dateofemail ASC;";
+
+    //echo $query;
     
     // Execute the query
     $result = mysqli_query($conn, $query);
     
     // Check if query was successful
     if ($result) {
+        // echo "<pre>";
+        // print_r(mysqli_fetch_assoc($result));
+        // echo "</pre>";
       // Display the results in a table
-      echo "<table>";
-      echo "<tr><th>Name</th><th>Address</th><th>City</th><th>Province</th><th>Postal Code</th><th>Phone Number</th><th>Web Address</th><th>Type</th><th>Capacity</th><th>General Manager</th><th>Number of Employees</th></tr>";
+      echo "<table class =\"table\">";
+      echo "<tr><th>EmailID</th><th>Email Body</th><th>Date Of Email</th><th>Receiver</th>
+      <th>Subject</th>
+      <th>Sender</th>";
+       echo "<br>";
+       
       while ($row = mysqli_fetch_assoc($result)) {
+
         echo "<tr>";
-        echo "<td>".$row['name']."</td>";
-        echo "<td>".$row['address']."</td>";
-        echo "<td>".$row['city']."</td>";
-        echo "<td>".$row['province']."</td>";
-        echo "<td>".$row['postalcode']."</td>";
-        echo "<td>".$row['phonenum']."</td>";
-        echo "<td>".$row['webaddress']."</td>";
-        echo "<td>".$row['facilitytype']."</td>";
-        echo "<td>".$row['capacity']."</td>";
-        echo "<td>".$row['general_manager']."</td>";
-        echo "<td>".$row['nb_of_current_employees']."</td>";
+        echo "<td>".$row['emailID']."</td>";
+        echo "<td>".$row['emailbody']."</td>";
+        echo "<td>".$row['dateofemail']."</td>";
+        echo "<td>".$row['receiver']."</td>";
+        echo "<td>".$row['subject']."</td>";
+        echo "<td>".$row['sender']."</td>";
         echo "</tr>";
       }
       echo "</table>";
@@ -96,16 +103,6 @@ if (isset($_POST['submit'])) {
   }
 }
 ?>
-
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>
