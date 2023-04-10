@@ -67,7 +67,7 @@ include 'Connect.php'
   <li><a href="Q11.php">Facilities Doctors</a></li>
   <li><a href="Q12.php">Total Hours By Role</a></li>
   <li><a href="Q13.php">Get Facility Covid Details</a></li>
-  <li><a href="link9.html">Doctors of Quebec</a></li>
+  <li><a href="Q14.php">Doctors of Quebec</a></li>
   <li><a href="link10.html">Nurses with most hours</a></li>
   <li><a href="link11.html">Doctors and nurses 3xCovid</a></li>
   <li><a href="link12.html">Doctors and nurses no Covid</a></li>

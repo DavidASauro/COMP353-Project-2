@@ -7,6 +7,7 @@ include 'Connect.php'
 <head>
 
     <title>Document</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 <body>
@@ -51,49 +52,35 @@ include 'Connect.php'
         <a class="nav-link" href="FacilityCity.php">FacilityCity</a>
       </li>
   </ul>
-  <h1>Employee Details Based On Facility</h1>
-<form method="POST">
-    <label for="fid">Facility ID:</label><br>
-    <input type="number"  id="fid" name="fid" ><br>
-    <button type="submit" name="submit" class="btn btn-outline-success btn-lg">Submit</button>
-</form>
+  <h1>Doctors of Quebec</h1>
 
 <?php
-if (isset($_POST['submit'])) {
 
-    $fid = $_POST["fid"];
-    $query = "SELECT E.firstname, E.lastname, W.startdate, E.dateofbirth, E.medicarenum, E.telephonenum, E.address, EA.city, EA.province, EA.postalcode, E.citizenship, E.emailaddress, W.facilityID
-    FROM Employees as E, WorksAt as W, EmployeeAddress as EA
-    WHERE E.medicarenum = W.medicarenum AND EA.postalcode = E.postalcode AND W.enddate IS NULL AND W.facilityID = '$fid'
-    ORDER BY E.role, E.firstname, E.lastname";
+   
+
+    $query = "SELECT W.medicarenum, E.firstname, E.lastname, EA.city, COUNT(W.facilityID) as 'nb_of_facilities'
+    FROM Employees as E, EmployeeAddress as EA, WorksAt as W
+    WHERE EA.postalcode = E.postalcode AND EA.province = 'QC' AND W.medicarenum = E.medicarenum AND W.enddate IS NULL
+    GROUP BY W.medicarenum
+    ORDER BY EA.city, nb_of_facilities DESC";
     
     // Execute the query
     $result = mysqli_query($conn, $query);
     
     // Check if query was successful
     if ($result) {
-      //  echo "<pre>";
-      //   print_r(mysqli_fetch_assoc($result));
-      //   echo "</pre>";
+    //   echo "<pre>";
+    //   print_r(mysqli_fetch_assoc($result));
+    //   echo "</pre>";
       // Display the results in a table
       echo "<table class =\"table\">";
-      echo "<tr><th>First Name</th><th>Last Name</th><th>Start Date</th><th>Date Of Birth</th><th>Medicare Numeber</th><th>Phone Number</th><th>Address</th><th>City</th><th>Province</th><th>Postal Code</th><th>citizenship</th><th>Email</th><th>FacilityID</th></tr>";
+      echo "<tr><th>First Name</th><th>Last Name</th><th>City</th><th>Number of Facilities</th></tr>";
       while ($row = mysqli_fetch_assoc($result)) {
-
         echo "<tr>";
         echo "<td>".$row['firstname']."</td>";
         echo "<td>".$row['lastname']."</td>";
-        echo "<td>".$row['startdate']."</td>";
-        echo "<td>".$row['dateofbirth']."</td>";
-        echo "<td>".$row['medicarenum']."</td>";
-        echo "<td>".$row['telephonenum']."</td>";
-        echo "<td>".$row['address']."</td>";
         echo "<td>".$row['city']."</td>";
-        echo "<td>".$row['province']."</td>";
-        echo "<td>".$row['postalcode']."</td>";
-        echo "<td>".$row['citizenship']."</td>";
-        echo "<td>".$row['emailaddress']."</td>";
-        echo "<td>".$row['facilityID']."</td>";
+        echo "<td>".$row['nb_of_facilities']."</td>";
         echo "</tr>";
       }
       echo "</table>";
@@ -101,18 +88,6 @@ if (isset($_POST['submit'])) {
       echo "Error: " . mysqli_error($conn);
   }
 
-}
 ?>
-
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>

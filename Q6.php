@@ -51,19 +51,15 @@ include 'Connect.php'
         <a class="nav-link" href="FacilityCity.php">FacilityCity</a>
       </li>
   </ul>
-<form method="POST">
-    <label for="fid">Facility ID:</label><br>
-    <input type="number"  id="fid" name="fid" ><br>
-    <button type="submit" name="submit" class="btn btn-outline-success btn-lg">Submit</button>
-</form>
+  <h1>Facility Details</h1>
 
 <?php
-if (isset($_POST['submit'])) {
+
    
-    $fid = $_POST["fid"];
-    $query = "SELECT F.name, FA.address, FC.city, FA.province, FC.postalcode, F.phonenum, F.webaddress, F.facilitytype, F.capacity, E.firstname AS 'general_manager', COUNT(W.facilityID) AS 'nb_of_current_employees' 
-    FROM Facilities as F, FacilityAddress as FA, FacilityCity as FC, WorksAt as W, Employees as E
-    WHERE $fid = F.facilityID AND F.facilityID = FC.facilityID AND W.enddate IS NULL AND F.facilityID = W.facilityID AND E.medicarenum = F.managerID
+
+    $query = "SELECT F.name, FA.address, FC.city, FA.province, FC.postalcode, F.phonenum, F.webaddress, F.facilitytype, F.capacity, F.managerID, COUNT(W.facilityID) AS 'nb_of_current_employees' 
+    FROM Facilities as F, FacilityAddress as FA, FacilityCity as FC, WorksAt as W
+    WHERE F.address = FA.address AND F.postalcode = FC.postalcode AND W.enddate IS NULL AND F.facilityID = W.facilityID
     GROUP BY W.facilityID
     ORDER BY FA.province, FC.city, F.facilitytype, nb_of_current_employees";
     
@@ -72,8 +68,11 @@ if (isset($_POST['submit'])) {
     
     // Check if query was successful
     if ($result) {
+      // echo "<pre>";
+      // print_r(mysqli_fetch_assoc($result));
+      // echo "</pre>";
       // Display the results in a table
-      echo "<table>";
+      echo "<table class =\"table\">";
       echo "<tr><th>Name</th><th>Address</th><th>City</th><th>Province</th><th>Postal Code</th><th>Phone Number</th><th>Web Address</th><th>Type</th><th>Capacity</th><th>General Manager</th><th>Number of Employees</th></tr>";
       while ($row = mysqli_fetch_assoc($result)) {
         echo "<tr>";
@@ -86,7 +85,7 @@ if (isset($_POST['submit'])) {
         echo "<td>".$row['webaddress']."</td>";
         echo "<td>".$row['facilitytype']."</td>";
         echo "<td>".$row['capacity']."</td>";
-        echo "<td>".$row['general_manager']."</td>";
+        echo "<td>".$row['managerID']."</td>";
         echo "<td>".$row['nb_of_current_employees']."</td>";
         echo "</tr>";
       }
@@ -94,7 +93,7 @@ if (isset($_POST['submit'])) {
     } else {
       echo "Error: " . mysqli_error($conn);
   }
-}
+
 ?>
 
 

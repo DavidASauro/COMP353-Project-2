@@ -51,6 +51,7 @@ include 'Connect.php'
         <a class="nav-link" href="FacilityCity.php">FacilityCity</a>
       </li>
   </ul>
+  <h1>Facility Doctors</h1>
 
   <form method="POST">
     <label for="fid">Facility ID:</label><br>
@@ -80,9 +81,9 @@ if (isset($_POST['submit'])) {
     
     // Check if query was successful
     if ($result) {
-        echo "<pre>";
-        print_r(mysqli_fetch_assoc($result));
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r(mysqli_fetch_assoc($result));
+        // echo "</pre>";
       // Display the results in a table
       echo "<table class =\"table\">";
       echo "<tr><th>First Name</th><th>Last Name</th><th>Role</th>";

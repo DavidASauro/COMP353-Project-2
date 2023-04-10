@@ -51,6 +51,7 @@ include 'Connect.php'
         <a class="nav-link" href="FacilityCity.php">FacilityCity</a>
       </li>
   </ul>
+  <h1>Doctor Details</h1>
 
   <form method="POST">
     <label for="startdate">Start Date:</label><br>
