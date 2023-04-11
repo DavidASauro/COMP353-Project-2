@@ -17,7 +17,7 @@ include 'Connect.php'
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link" href="LandingPage.php">Home</a>
+        <a class="nav-link" href="LandingPage.html">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="Employees.php">Employees</a>

@@ -13,7 +13,7 @@ include 'Connect.php'
 <body>
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link active" href="LandingPage.php">Home</a>
+        <a class="nav-link active" href="LandingPage.html">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="Employees.php">Employees</a>
@@ -53,7 +53,7 @@ include 'Connect.php'
       </li>
   </ul>
   <h1>Total Hours</h1>
-<form method="POST">
+<!-- <form method="POST">
   <label for="fid">Facility ID:</label><br>
   <input type="number"  id="fid" name="fid" ><br>
   <label for="date">Start Date:</label><br>
@@ -62,32 +62,42 @@ include 'Connect.php'
   <input type="date"  id="edate" name="edate" ><br>
 
   <button type="submit" name="submit" class="btn btn-outline-success btn-lg">Submit</button>
-</form>
+</form> -->
 
 <?php
   
-  if (isset($_POST['submit'])) {
+  //if (isset($_POST['submit'])) {
 
-    $fid = $_POST['fid'];
-    $sdate = $_POST['sdate'];
-    $edate = $_POST['edate'];
+    // $fid = $_POST['fid'];
+    // $sdate = $_POST['sdate'];
+    // $edate = $_POST['edate'];
 
     $query = "SELECT Employees.role, SUM(TIMESTAMPDIFF(HOUR, starttime, endtime)) as total_hours_scheduled
     FROM Schedule
     JOIN Employees ON Schedule.medicarenum = Employees.medicarenum
-    WHERE Schedule.facilityID = '$fid' AND 
-          scheduledate BETWEEN '$sdate' AND '$edate'
+    WHERE Schedule.facilityID = 4 AND 
+          scheduledate BETWEEN '2022-01-01' AND '2024-01-01'
     GROUP BY Employees.role
-    ORDER BY Employees.role ASC";
+    ORDER BY Employees.role ASC;";
+
+    // echo $query;
+
+    // SELECT Employees.role, SUM(TIMESTAMPDIFF(HOUR, starttime, endtime)) as total_hours_scheduled
+    // FROM Schedule
+    // JOIN Employees ON Schedule.medicarenum = Employees.medicarenum
+    // WHERE Schedule.facilityID = '$fid' AND 
+    //       scheduledate BETWEEN '$sdate' AND '$edate'
+    // GROUP BY Employees.role
+    // ORDER BY Employees.role ASC
     
     // Execute the query
     $result = mysqli_query($conn, $query);
     
     // Check if query was successful
     if ($result) {
-    //   echo "<pre>";
-    //   print_r(mysqli_fetch_assoc($result));
-    //   echo "</pre>";
+      // echo "<pre>";
+      // print_r(mysqli_fetch_assoc($result));
+      // echo "</pre>";
       // Display the results in a table
       echo "<table class =\"table\">";
       echo "<tr><th>Role</th><th>Total Hours Scheduled</th></tr>";
@@ -101,7 +111,7 @@ include 'Connect.php'
     } else {
       echo "Error: " . mysqli_error($conn);
   }
-}
+//}
 
 ?>
 </body>

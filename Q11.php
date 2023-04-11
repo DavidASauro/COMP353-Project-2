@@ -12,7 +12,7 @@ include 'Connect.php'
 <body>
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link active" href="LandingPage.php">Home</a>
+        <a class="nav-link active" href="LandingPage.html">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="Employees.php">Employees</a>
@@ -53,26 +53,35 @@ include 'Connect.php'
   </ul>
   <h1>Facility Doctors</h1>
 
-  <form method="POST">
+  <!-- <form method="POST">
     <label for="fid">Facility ID:</label><br>
     <input type="number"  id="fid" name="fid" ><br>
     <button type="submit" name="submit" class="btn btn-outline-success btn-lg">Submit</button>
-</form>
+</form> -->
 
 <?php
-if (isset($_POST['submit'])) {
+//if (isset($_POST['submit'])) {
 
-    $startdate = date("Y-m-d");
-    $fid = $_POST['fid'];
+    // $startdate = date("Y-m-d");
+    // $fid = $_POST['fid'];
 
 
     $query = "SELECT e.firstname, e.lastname, e.role
     FROM Employees e, Schedule s
-    WHERE s.facilityID = '$fid'
-      AND s.starttime BETWEEN DATE_SUB('$startdate', INTERVAL 14 DAY) AND '$startdate'
+    WHERE
+        s.facilityID = 7
+      AND s.scheduledate BETWEEN DATE_SUB('2023-04-11', INTERVAL 14 DAY) AND '2023-04-11'
       AND s.medicarenum = e.medicarenum
       AND e.role IN ('Doctor', 'Nurse')
     ORDER BY e.role ASC, e.firstname ASC;";
+
+    // SELECT e.firstname, e.lastname, e.role
+    // FROM Employees e, Schedule s
+    // WHERE s.facilityID = '$fid'
+    //   AND s.starttime BETWEEN DATE_SUB('$startdate', INTERVAL 14 DAY) AND '$startdate'
+    //   AND s.medicarenum = e.medicarenum
+    //   AND e.role IN ('Doctor', 'Nurse')
+    // ORDER BY e.role ASC, e.firstname ASC;
 
     //echo $query;
     
@@ -101,7 +110,7 @@ if (isset($_POST['submit'])) {
     } else {
       echo "Error: " . mysqli_error($conn);
   }
-}
+//}
 ?>
 
 </body>
