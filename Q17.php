@@ -54,7 +54,7 @@ include 'Connect.php'
             <a class="nav-link" href="FacilityCity.php">FacilityCity</a>
         </li>
     </ul>
-    <h1>Doctors and Nurses Covid and Working</h1>
+    <h1>Doctors and Nurses Without Covid and Working</h1>
 
     <?php
 
