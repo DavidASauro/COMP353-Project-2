@@ -64,15 +64,9 @@ if (isset($_POST['submit'])) {
     $startdate = $_POST['startdate'];
 
 
-    $query = "SELECT e.firstname, e.lastname, i.dateofinfection, f.name
-    FROM Employees e, Infections i, Facilities f, WorksAt w
-    WHERE e.medicarenum = i.medicarenum
-      AND e.medicarenum = w.medicarenum
-      AND w.facilityID = f.facilityID
-      AND i.dateofinfection BETWEEN DATE_SUB('$startdate', INTERVAL 14 DAY) AND '$startdate'
-      AND e.role = 'Doctor'
-      AND f.name IS NOT NULL
-    ORDER BY f.name ASC, e.firstname ASC;";
+    $query = "SELECT e.firstname, e.lastname, i.dateofinfection, f.name FROM Employees e, Infections i, Facilities f, WorksAt w
+    WHERE e.medicarenum = i.medicarenum AND e.medicarenum = w.medicarenum AND w.facilityID = f.facilityID
+      AND i.dateofinfection BETWEEN DATE_SUB('$startdate', INTERVAL 14 DAY) AND '$startdate' AND e.role = 'Doctor' AND f.name IS NOT NULL ORDER BY f.name ASC, e.firstname ASC;";
 
     //echo $query;
     

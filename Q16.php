@@ -94,8 +94,6 @@ include 'Connect.php'
       echo "</tr>";
     }
     echo "</table>";
-  } else {
-    echo "Error: " . mysqli_error($conn);
   }
 
   ?>
