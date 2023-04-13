@@ -17,7 +17,7 @@ include 'Connect.php'
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link" href="LandingPage.html">Home</a>
+        <a class="nav-link" href="index.html">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="Employees.php">Employees</a>
@@ -65,7 +65,7 @@ include 'Connect.php'
   </div>
 <div class="form-group col-md-2">
   <label for="medicare">Medicare Number:</label><br>
-  <input type="text" class="form-control" id="medicare" name="medicare" minlength="12" maxlength="12"><br>
+  <input type="text" class="form-control" id="medicare" name="medicare"  maxlength="12"><br>
 </div>
 <div class="form-group col-md-2">
   <label for="vdate">Date:</label><br>
@@ -99,6 +99,7 @@ echo "<tr>";
 while($row = mysqli_fetch_assoc($column_names)) {
 	echo '<th>' . $row['Field'] . '</th>';
 }
+echo '<th> Edit </th>';
 echo '<th> Delete </th>';
 
 
@@ -109,12 +110,19 @@ echo '<th> Delete </th>';
     foreach ($row as $value) {
         echo "<td>" . $value . "</td>";
     }
+    echo "<td>";
+    echo "<form action='editVaccines.php' method='get'>";
+    echo "<input type='hidden' name='medicarenum' value='" . $row['medicarenum'] . "'>";
+    echo "<input type='hidden' name='type' value='" . $row['type'] . "'>";
+    echo "<button class='btn btn-outline-success' type='submit'>Edit</button>";
+    echo "</form>";
+    echo "</td>";
 
     echo "<td>";
     echo "<form method='POST'>";
     echo "<input type='hidden' name='value1' value='" . $row['medicarenum'] . "'>";
     echo "<input type='hidden' name='value2' value='" . $row['type'] . "'>";
-    echo "<input type='hidden' name='value3' value='" . $row['date'] . "'>";
+    echo "<input type='hidden' name='value3' value='" .  $row['date'] . "'>";
     echo "<button type='submit' class='btn btn-outline-danger' name='delete'>Delete</button>";
     echo "</form>";
     echo "</td>";
@@ -128,7 +136,7 @@ if(isset($_POST['delete'])) {
   $value2 = $_POST['value2'];
   $value3 = $_POST['value3'];
 
-  $query = "DELETE FROM $tablename WHERE value1='$value1' AND value2='$value2' AND value3='$value3";
+  $query = $query = "DELETE FROM $tablename WHERE medicarenum='$value1' AND type='$value2' AND date=STR_TO_DATE('$value3', '%Y-%m-%d')";
   $result = mysqli_query($conn, $query);
 
   if($result) {
@@ -146,7 +154,7 @@ if (isset($_GET['submit'])) {
   $type = $_GET['type'];
 
 
-  $query1 = "INSERT INTO Vaccines ('date', dosenum, facilityID, medicarenum, type) 
+  $query1 = "INSERT INTO Vaccines (date, dosenum, facilityID, medicarenum, type) 
   VALUES ('$date', '$dosenum', '$facilityID', '$medicarenum', '$type')";
   $result1 = mysqli_query($conn, $query1);
 

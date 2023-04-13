@@ -17,7 +17,7 @@ include 'Connect.php'
 <body>
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link" href="LandingPage.html">Home</a>
+      <a class="nav-link" href="index.html">Home</a>
     </li>
     <li class="nav-item">
       <a class="nav-link active" href="Employees.php">Employees</a>
@@ -89,11 +89,11 @@ include 'Connect.php'
       </div>
       <div class="form-group col-md-2">
         <label for="province">Province:</label><br>
-        <input type="text" class="form-control" placeholder="Province" id="province" name="province"><br>
+        <input type="text" class="form-control" placeholder="Province" id="province" name="province" maxlength="2"><br>
       </div>
       <div class="form-group col-md-2">
         <label for="citizen">Citizenship:</label><br>
-        <input type="text" class="form-control" placeholder="Citizenship" id="citizen" name="citizen"><br>
+        <input type="text" class="form-control" placeholder="Citizenship" id="citizen" name="citizen" maxlength="2"><br>
       </div>
       <div class="form-group col-md-2">
         <label for="mail">Email:</label><br>
@@ -150,13 +150,16 @@ include 'Connect.php'
     echo "<td>";
     echo "<form action='editEmployees.php' method='get'>";
     echo "<input type='hidden' name='medicarenum' value='" . $row['medicarenum'] . "'>";
+    echo "<input type='hidden' name='postalcode' value='" . $row['postalcode'] . "'>";
     echo "<button class='btn btn-outline-success' type='submit'>Edit</button>";
     echo "</form>";
     echo "</td>";
 
     echo "<td>";
     echo "<form method='POST'>";
-    echo "<button type='submit' class='btn btn-outline-danger' name='delete' value='" . $row['medicarenum'] . "'>Delete</button>";
+    echo "<input type='hidden' name='medicarenum' value='" . $row['medicarenum'] . "'>";
+    echo "<input type='hidden' name='postal' value='" . $row['postalcode'] . "'>";
+    echo "<button type='submit' class='btn btn-outline-danger' name='delete'>Delete</button>";
     echo "</form>";
     echo "</td>";
 
@@ -166,12 +169,13 @@ include 'Connect.php'
 
   if (isset($_POST['delete'])) {
 
-    $medicarenum = $_POST['delete'];
+    $medicarenum = $_POST['medicarenum'];
+    $postal = $_POST['postal'];
 
     $query = "DELETE FROM $tablename WHERE medicarenum = '$medicarenum'";
     $result = mysqli_query($conn, $query);
 
-    $query1 = "DELETE FROM EmployeeAddress WHERE medicarenum = '$medicarenum'";
+    $query1 = "DELETE FROM EmployeeAddress WHERE postalcode = '$postal'";
     $result1 = mysqli_query($conn, $query1);
 
     $query2 = "DELETE FROM Infections WHERE medicarenum = '$medicarenum'";

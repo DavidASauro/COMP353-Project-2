@@ -17,7 +17,7 @@ include 'Connect.php'
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link" href="LandingPage.html">Home</a>
+        <a class="nav-link" href="index.html">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="Employees.php">Employees</a>
@@ -65,7 +65,7 @@ include 'Connect.php'
     </div>
 <div class="form-group col-md-2">
   <label for="medicare">Medicare Number:</label><br>
-  <input type="text" class="form-control" id="medicare" name="medicare" minlength="12" maxlength="12"><br>
+  <input type="text" class="form-control" id="medicare" name="medicare"  maxlength="12"><br>
       </div>
 <div class="form-group col-md-2">
   <label for="inftype">Infection Type:</label><br>
@@ -103,6 +103,7 @@ echo '<th> Delete </th>';
     foreach ($row as $value) {
         echo "<td>" . $value . "</td>";
     }
+  
 
 	  echo "<td>";
     echo "<form method='POST'>";
@@ -121,8 +122,14 @@ if(isset($_POST['delete'])) {
   $value1 = $_POST['value1'];
   $value2 = $_POST['value2'];
 
-  $query = "DELETE FROM $tablename WHERE value1='$value1' AND value2='$value2'";
-  mysqli_query($conn, $query);
+  $query = "DELETE FROM $tablename WHERE dateofinfection='$value1' AND infectiontype='$value2'";
+  $resut1 = mysqli_query($conn, $query);
+
+  if ($result1) {
+    echo "Row removed successfully.";
+  } else {
+   
+  }
 
 }
 if (isset($_GET['submit'])) {

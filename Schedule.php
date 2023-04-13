@@ -17,7 +17,7 @@ include 'Connect.php'
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link" href="LandingPage.html">Home</a>
+        <a class="nav-link" href="index.html">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="Employees.php">Employees</a>
@@ -65,7 +65,7 @@ include 'Connect.php'
 </div>
 <div class="form-group col-md-2">
   <label for="medicare">Medicare Number:</label><br>
-  <input type="text" class="form-control" id="medicare" name="medicare" minlength="12" maxlength="12"><br>
+  <input type="text" class="form-control" id="medicare" name="medicare"  maxlength="12"><br>
 </div>
   <div class="form-group col-md-2">
   <label for="sdate">Scheduled Date:</label><br>
@@ -100,6 +100,7 @@ while($row = mysqli_fetch_assoc($column_names)) {
 	echo '<th>' . $row['Field'] . '</th>';
 }
 
+echo '<th> Edit </th>';
 echo '<th> Delete </th>';
 
 
@@ -111,7 +112,23 @@ echo '<th> Delete </th>';
         echo "<td>" . $value . "</td>";
     }
 
-	echo "<td> <button type ='submit' class= \"btn btn-outline-danger\" name ='delete' value =''> Delete </button> </td>";
+    echo "<td>";
+    echo "<form action='editSchedule.php' method='get'>";
+    echo "<input type='hidden' name='scheduledate' value='" . $row['scheduledate'] . "'>";
+    echo "<input type='hidden' name='starttime' value='" . $row['starttime'] . "'>";
+    echo "<input type='hidden' name='medicarenum' value='" . $row['medicarenum'] . "'>";
+    echo "<button class='btn btn-outline-success' type='submit'>Edit</button>";
+    echo "</form>";
+    echo "</td>";
+
+    echo "<td>";
+    echo "<form method='POST'>";
+    echo "<input type='hidden' name='value1' value='" . $row['scheduledate'] . "'>";
+    echo "<input type='hidden' name='value2' value='" . $row['starttime'] . "'>";
+    echo "<input type='hidden' name='value3' value='" . $row['medicarenum'] . "'>";
+    echo "<button type='submit' class='btn btn-outline-danger' name='delete'>Delete</button>";
+    echo "</form>";
+    echo "</td>";
     echo "</tr>";
 }
 echo "</table>";
@@ -134,6 +151,22 @@ if (isset($_GET['submit'])) {
   } else {
    
   }
+}
+if(isset($_POST['delete'])) {
+ 
+  $scheduledate = $_POST['value1'];
+  $starttime = $_POST['value2'];
+  $medicarenum = $_POST['value3'];
+
+  $query = "DELETE FROM $tablename WHERE scheduledate='$scheduledate' AND starttime='$starttime' AND medicarenum='$medicarenum'";
+  $result1 = mysqli_query($conn, $query);
+
+  if ($result1) {
+    echo "Row removed successfully.";
+  } else {
+   
+  }
+
 }
 
 
