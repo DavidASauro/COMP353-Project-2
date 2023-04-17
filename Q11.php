@@ -51,7 +51,7 @@ include 'Connect.php'
         <a class="nav-link" href="FacilityCity.php">FacilityCity</a>
       </li>
   </ul>
-  <h1>Facility Doctors</h1>
+  <h1>Facility Doctors/Nurses</h1>
 
   <!-- <form method="POST">
     <label for="fid">Facility ID:</label><br>

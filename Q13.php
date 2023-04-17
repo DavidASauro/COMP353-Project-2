@@ -71,12 +71,13 @@ include 'Connect.php'
     $query = "SELECT FA.province, F.name, F.capacity, COUNT(*) AS infected
     FROM Facilities F, Employees E, Infections I, WorksAt WA, FacilityAddress FA, FacilityCity FC
     WHERE F.facilityID = WA.facilityID 
-      AND E.medicarenum = WA.medicarenum 
+      AND I.medicarenum = WA.medicarenum 
       AND E.medicarenum = I.medicarenum
       AND F.postalcode = FC.postalcode
       AND FC.city = FA.city
       AND F.address = FA.address
-      AND I.dateofinfection BETWEEN DATE_SUB(CURDATE(), INTERVAL 14 DAY) AND CURDATE()
+      AND WA.enddate IS NULL
+      AND I.dateofinfection BETWEEN DATE_SUB('2023-04-13', INTERVAL 14 DAY) AND '2023-04-13'
     GROUP BY FA.province, F.name, F.capacity
     ORDER BY FA.province ASC, infected ASC;";
 
