@@ -60,17 +60,15 @@ include 'Connect.php'
 
 
 
-    $query = "SELECT e.firstname, e.lastname, s.scheduledate, e.role, e.dateofbirth, e.emailaddress, SUM(TIMESTAMPDIFF(HOUR, s.starttime, s.endtime)) as total_hours_worked
-    FROM Employees e
-    JOIN Infections i ON e.medicarenum = i.medicarenum
-    JOIN Schedule s ON e.medicarenum = s.medicarenum
-    WHERE e.role IN ('Nurse', 'Doctor') AND i.medicarenum IS NULL
-    GROUP BY e.medicarenum, e.firstname, e.lastname, s.scheduledate, e.role, e.dateofbirth, e.emailaddress
+    $query = "SELECT e.firstname, e.lastname, s.scheduledate, e.role, e.dateofbirth, e.emailaddress, (TIMESTAMPDIFF(HOUR, s.starttime, s.endtime)) as total_hours_worked
+    FROM Employees e, Schedule s
+    WHERE e.medicarenum = s.medicarenum AND e.role IN ('Nurse', 'Doctor') AND e.medicarenum NOT IN (SELECT medicarenum FROM Infections) 
     ORDER BY e.role ASC, e.firstname ASC, e.lastname ASC;";
 
 
     // Execute the query
     $result = mysqli_query($conn, $query);
+
 
     // Check if query was successful
     if ($result) {
@@ -78,7 +76,7 @@ include 'Connect.php'
         //   print_r(mysqli_fetch_assoc($result));
         //   echo "</pre>";
         echo "<table class =\"table\">";
-        echo "<tr><th>First Name</th><th>Last Name</th><th>Schedule Date</th><th>Role</th><th>Date Of Birth</th><th>Email Address</th><th>Total Hours Worked</th><th>Number Of Infections</th></tr>";
+        echo "<tr><th>First Name</th><th>Last Name</th><th>Schedule Date</th><th>Role</th><th>Date Of Birth</th><th>Email Address</th><th>Total Hours Worked</th></tr>";
         while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
             echo "<td>" . $row['firstname'] . "</td>";
